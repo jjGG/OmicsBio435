@@ -16,3 +16,8 @@ https://www.youtube.com/playlist?list=PLSviU861UtD81AuyYb3SbndmAA_qTCoLe
 
 https://www.youtube.com/watch?v=QLFc9gw_Hfs
 -> 20min
+
+Git and RStudio
+
+https://www.youtube.com/watch?v=megZYkCLMA4
+-> collaborating on a project w/ RStudio and git
