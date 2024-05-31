@@ -7,3 +7,8 @@ https://www.youtube.com/watch?v=RGOj5yH7evk
 
 https://www.youtube.com/watch?v=uGLQF2kUwOA
 -> 40min, DE, 2021
+
+Git in RStudio:
+https://www.youtube.com/playlist?list=PLSviU861UtD81AuyYb3SbndmAA_qTCoLe
+-> 11 tiny small videos
+-> do git repos from RStudio
