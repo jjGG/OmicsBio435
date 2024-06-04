@@ -2,6 +2,11 @@ In this repos here we will develop the Bio435_week2
 
 Some useful online Tutorials to get familiar w/ git and github (commented):
 
+Datacamp:
+
+https://app.datacamp.com/learn/courses/introduction-to-git
+-> first section free, very useful with exercises
+
 https://www.youtube.com/watch?v=RGOj5yH7evk
 -> 1:08 hr, EN, useful, VScode, 
 
@@ -16,6 +21,8 @@ https://www.youtube.com/playlist?list=PLSviU861UtD81AuyYb3SbndmAA_qTCoLe
 
 https://www.youtube.com/watch?v=QLFc9gw_Hfs
 -> 20min
+
+
 
 Git and RStudio
 
