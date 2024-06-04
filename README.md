@@ -1,5 +1,8 @@
 In this repos here we will develop the Bio435_week2
 
+#### Do some nice formatting
+[Rmarkdown-cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+
 __GOALS for Week 2:__
 * know what is git and github
 * clone the proposed repository and commit some changes at various positions
