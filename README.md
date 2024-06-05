@@ -34,10 +34,17 @@ https://www.youtube.com/watch?v=QLFc9gw_Hfs
 
 
 
-Git and RStudio
+RStudio w/ git
 
 https://www.youtube.com/watch?v=megZYkCLMA4
 -> collaborating on a project w/ RStudio and git
+
+About R.
+
+https://gitconnected.com/learn/r
+-> various Tutorials to R
+
+
 
 
 
