@@ -12,7 +12,13 @@ __GOALS for Week 2:__
 
 
 
-Some useful online Tutorials to get familiar w/ git and github (commented):
+Do the first __chapter__ of the free datacamp course *Introduction to R*:
+
+https://app.datacamp.com/learn/courses/free-introduction-to-r
+
+
+
+Some more useful online Tutorials to get familiar w/ git and github (commented):
 
 https://app.datacamp.com/learn/courses/introduction-to-git
 -> first section free, very useful with exercises
