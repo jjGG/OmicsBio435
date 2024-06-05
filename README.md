@@ -3,7 +3,7 @@
 #### In order to do some nice formatting
 [Rmarkdown-cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 
-__GOALS for Week 2:__
+## GOALS for Week 2:
 * know what is git and github
 * clone or branch the proposed repository and commit some changes at various positions
   + add your phone Nr and push it to the main branch
