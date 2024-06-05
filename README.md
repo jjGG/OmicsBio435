@@ -1,6 +1,6 @@
-In this repos here we will develop the Bio435_week2
+# In this repos here we will develop the Bio435_week2
 
-#### Do some nice formatting
+#### In order to do some nice formatting
 [Rmarkdown-cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 
 __GOALS for Week 2:__
@@ -13,8 +13,6 @@ __GOALS for Week 2:__
 
 
 Some useful online Tutorials to get familiar w/ git and github (commented):
-
-Datacamp:
 
 https://app.datacamp.com/learn/courses/introduction-to-git
 -> first section free, very useful with exercises
