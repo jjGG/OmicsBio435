@@ -5,7 +5,7 @@ In this repos here we will develop the Bio435_week2
 
 __GOALS for Week 2:__
 * know what is git and github
-* clone the proposed repository and commit some changes at various positions
+* clone or branch the proposed repository and commit some changes at various positions
   + add your phone Nr and push it to the main branch
   + in the assignment folder add a folder with your group names and do the exercise in R
   + commit your code and your results as well 
