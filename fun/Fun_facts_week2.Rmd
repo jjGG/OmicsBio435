@@ -1,0 +1,39 @@
+---
+title: "Bio435 - COIL course"
+author: "Jonas Grossmann"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+  bookdown::html_document2:
+    toc: true
+  pdf_document: 
+    toc: true
+header-includes: 
+  \usepackage{fancyhdr}
+  \pagestyle{fancy}
+  \fancyhead[CO,CE]{Fun Facts to Familiarize With Multiple Things}
+  \fancyfoot[CO,CE]{\textbf{FGCZ} - www.fgcz.ch - 2024}
+  \fancyfoot[LE,RO]{\thepage} 
+params:
+  grp: NULL
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+bibliography: bibliography.bib
+editor_options: 
+  chunk_output_type: console
+always_allow_html: true
+---
+
+
+# Overview
+
+In this document, we will go through some fun facts to familiarize with multiple things. For example we would like to share a picture from everyone and also comment it with an appropriate caption. This is easy possible here in Rmarkdown. We will also show how to include a table of contents and how to include a bibliography.
+
+
+## Jonas Grossmann
+
+### here using a webresource
+![Jonas Grossmann](https://fgcz.ch/the-center/people/grossmann/_jcr_content/par/twocolumn/par_left/fullwidthimage/image.imageformat.1286.1212265596.jpg)
+### here using a local picture
