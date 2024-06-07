@@ -37,3 +37,11 @@ In this document, we will go through some fun facts to familiarize with multiple
 ### here using a webresource
 ![Jonas Grossmann](https://fgcz.ch/the-center/people/grossmann/_jcr_content/par/twocolumn/par_left/fullwidthimage/image.imageformat.1286.1212265596.jpg)
 ### here using a local picture
+
+You can change the size and position of an image through parameters in the code chunk heading.
+
+```{r echo=FALSE, out.width = "30%", fig.align = "center"}
+knitr::include_graphics("IMG_8615.jpg")
+```
+
+Here we defined an `out.width = "30%"` and `fig.align = "center"`. We also prevented the code from appearing using `echo=FALSE`.
