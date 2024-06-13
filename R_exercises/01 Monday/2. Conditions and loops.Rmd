@@ -1,0 +1,259 @@
+---
+title: An R Markdown document converted from "C:/Users/vdtoo/SynologyDrive/Work/teaching/2024/Development
+  omics in oncology COIL/repo/R_exercises/01 Monday/2. Conditions and loops.ipynb"
+output: html_document
+---
+
+# Programming concepts: when to do what \(conditionals\)? and doing things over and over again \(loops\)
+
+What makes computers flexible in what they do, is that they can do different things in different conditions.  
+Let's start with an example to find out how this works.
+
+## Is 3 greater than 2 ?!
+
+![question.jpg](attachment:question.jpg)
+
+The question is simple, but how do you ask this question to a computer? Let's do this step by step.
+
+### A comparison
+
+We'll have to compare number 3 versus number 2. We've already seen that R can act as a calculator, so let's see if it works for this as well:
+
+
+```{r}
+3 >= 2
+```
+
+The outcome is a *logical* value, as you have seen before. A logical value can only be TRUE or FALSE.
+
+#### :ballot_box_with_check: Does the logic work the other way around?
+
+Test that some comparison that is indeed wrong will give you a FALSE value.
+
+
+```{r}
+# Compare two numbers to get FALSE as the outcome
+5 < 2
+```
+
+## Logical operators
+
+These kinds of comparisons (including things about 'equals' or 'does not equal') are called *logical operations*. The greater than sign (>) is called an *operator* or a *logical operator* to be specific.  
+Here is an overview of comparison operators that are available.
+
+| Operator | Meaning |
+|----------|---------|
+| < | smaller than |
+| <= | smaller or equal |
+| > | greater than |
+| >= | greater or equal |
+| == | equal |
+| != | NOT equal |
+
+These operators work on numbers or character strings, other operators work directly on logical values, and allow us to combine comparisons. The combination gives a single TRUE or FALSE.
+
+| Operator | Meaning |
+|----------|---------|
+| ! | **not** (give the opposite of the outcome) |
+| \|\| | **or** (either/or is true for a *single* expression) \* |
+| \| | **or** (either/or, but for each element in two vectors) |
+| && | **and** (both have to be true for a *single* expression) \* |
+| & | **and** (both have to be true, but for each element in  two vectors) |
+| xor(a, b) | **exclusive or** either a or b can be TRUE, but not both TRUE or FALSE |
+
+\* Usually, operators work on whole vectors at the same time, as you have seen with multiplication etc. The same is true for | and &, that compare two vectors with logical values.  
+:warning: The || and && operators are specifically made to make R do something different based on the outcome of a logical operation. This will become clear below. :warning:
+
+These work a bit similar to mathematical formulas, where you can use parentheses to group comparisons together.
+
+Examples:
+
+```
+TRUE && FALSE
+-> FALSE
+
+TRUE || FALSE
+-> TRUE
+
+!TRUE
+-> FALSE
+
+!(3<2)
+-> TRUE
+
+(1 < 2) && (3 < 4)
+-> TRUE
+```
+
+#### :ballot_box_with_check: Try it out yourself
+
+Try to find out the answers to the following questions using these powerful operations.
+Some things can't be done at once, for instance simultaneous comparisons. Try to combine the operators to get the answer.
+
+a = 5, b = 4, c = 2
+
+- a > b
+- b < c
+- a > b > c
+- b * c > a
+
+
+```{r}
+a <- 5
+b <- 4
+c <- 2
+```
+
+```{r}
+# answer cell
+a > b
+```
+
+```{r}
+# answer cell
+b < c
+```
+
+```{r}
+# answer cell
+a > b && b > c
+```
+
+```{r}
+# answer cell
+```
+
+### Vector operators for logic values
+
+Just to make the point from above a bit more clear, let's have a look a vector operator, & \(so single ampersand\).
+
+```{r}
+logical_a <- c(TRUE, TRUE, FALSE, FALSE)
+logical_b <- c(TRUE, FALSE, TRUE, FALSE)
+
+logical_a & logical_b
+```
+
+There also exists the 'double ampersand' operator &&. The output of this operator is _one_ value, TRUE or FALSE. It will therefore only work with two _single_ input values.
+
+If you compare the variables from above, it will give an error:  
+
+
+```{r}
+logical_a && logical_b
+```
+
+The following will work:  
+
+
+```{r}
+logical_c <- TRUE
+logical_d <- FALSE
+
+logical_c && logical_d
+```
+
+Why do we need this? It's because of conditionals, we run some code IF something is TRUE. It won't be possible to do this on a vector. We'll go into that next.
+
+So remember: & is for comparing whole vectors, && is for single values. The same is true for | and ||.   
+
+
+### Conditionals: do different things based on the outcome
+
+You can run different commands \(functions\) based on the outcome \(TRUE or FALSE\) of some logical operation. The next cell shows how this is done in R:  
+
+Test it for yourself with different values for a and b. Try to predict what happens if a and b are equal!
+
+
+```{r}
+a <- 5
+b <- 12
+
+if (a > b) {
+    cat (a, "is greater than", b)
+} else {
+    cat (a, "is smaller or equal than", b)
+}
+```
+
+### Repetition
+
+You can also use conditions repeat some code, until the condition is TRUE.
+
+```{r}
+counter <- 10
+
+# I use "\n" here, which tells R to put the cursor on the beginning of the next line before showing something on the screen.
+
+while ( counter != 0 ) {
+    cat ("The counter is at", counter, "\n")
+    counter <- counter - 1
+}
+```
+
+#### :ballot_box_with_check: Use a random condition to run some time
+
+Perform a loop until a randomly drawn value between 0 and 1 is over 0.8.  
+To get a random number we use the runif function (random number from uniform distribution) value. Use the help function to read how runif works.
+
+![die.png](attachment:die.png)
+
+```{r}
+# Look up help for the runif function
+?runif
+```
+
+```{r}
+# Loop until a random number is > 0.8. Print some text to show we're still repeating the code.
+
+while(runif(1) < 0.8) {
+    cat ("Still here - ")
+}
+```
+
+```{r}
+runif(1, min=.5, max=1.5)
+```
+
+```{r}
+random_number <- runif(n=1)
+
+cat ("first number: ", random_number, "\n\n")
+
+while(random_number < 0.8) {
+    cat("In the loop\n")
+    random_number = runif(n=1)
+    cat("new number", random_number, "\n\n")
+}
+```
+
+```{r}
+repeat {
+    cat("abc, ")
+
+    if (runif(1) < 0.2) {
+        break
+    }
+}
+```
+
+## Loops
+
+![1088948.jpeg](attachment:1088948.jpeg)
+
+Similar to the `while` statement above, there is a simplified way of repeating some piece of code. For this we use `for`, as follows:
+
+```{r}
+1:10
+```
+
+```{r}
+for ( counter_new in 1:10) {
+    cat ("The counter is", counter_new, "\n")
+}
+```
+
+# Congrats :tada:
+
+You have learnt about very important programming concepts! One more very important thing is about organizing your code using functions and libraries. That's up next.
+
