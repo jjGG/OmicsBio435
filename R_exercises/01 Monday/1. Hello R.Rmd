@@ -1,0 +1,399 @@
+---
+title: An R Markdown document converted from "C:/Users/vdtoo/SynologyDrive/Work/teaching/2024/Development
+  omics in oncology COIL/repo/R_exercises/01 Monday/1. Hello R.ipynb"
+output: html_document
+---
+
+#### :ballot_box_with_check: Notebook exercise
+
+Click on the text above *once*, so there is a line surrounding the text and a thick blue line on the left. This indicates the cell selection.  
+Now find the cell type in the ribbon above.
+
+![menu.png](attachment:menu.png)
+
+Try changing the cell type with the pull-down menu.
+
+### Running (R) code or formatting markdown
+
+`ctrl` + `enter` or `shift` + `enter`
+
+We are running R code, so the kernel is set to 'R' as you can see in the top right corner.  
+Let's start with some examples. R can be used as a simple calculator. The cell below this text (which in itself is in a cell) contains a simple sum.  
+To have the computer execute (interpret) the code, click on the cell to show the cursor, and press ***ctrl + Enter*** on the keyboard.  
+You may notice that in between the square brackets on the top, a solid green circle appears very briefly, and then is replaced by a number, it looks like [1].  
+The result of the calculation is shown underneath the code cell. In notebooks, results from code (and also error messages) are always shown underneath the cell.  
+The green circle is there to indicate that the computer is busy calculating the result. It is green to indicate all is well, just be patient :)  
+
+If it is the first time you run *any* code, the number will be '1' and will increase with every time you run the code. Try it out!
+
+NB. For reference all the cells are numbered on the right top of each cell. This is done so you can communicate about cell numbers with teachers or colleagues.
+
+```{r}
+# Comments start with the # character, this is text that is ignored by R.
+# R as a calculator
+
+3 * 4
+```
+
+```{r}
+4+6
+```
+
+```{r}
+7+9
+```
+
+```{r}
+142/143
+```
+
+#### :ballot_box_with_check: Calculator exercise
+
+Divide 142 by 433
+
+
+```{r}
+# ANSWER
+ 142 / 433
+```
+
+### Storing values in variables
+
+Similar to algebra, where you use symbols like $x$ to "store" values, you can assign values to *variables*. R uses a very special notation for assigning values: it uses an *arrow* and has to be typed like this: <-
+
+A variable can be longer than a single letter, for instance you could give it some useful name. You can also use the underscore (\_) to create something like small sentences.
+
+Examples could be: ```patient_data```, ```carcinoma_cell_lines```. 
+
+***Make life easy for yourself and make sure you will understand what the variable is used for!!!***
+*You will thank yourself later*
+
+```{r}
+4 -> example_number
+```
+
+To see the contents of a variable, just type it in a code cell, and execute the cell.
+
+```{r}
+example_number
+```
+
+#### :ballot_box_with_check: variables exercise
+Store your name in the variable. The name of the variable is "name". Show it on the screen in the next cell.
+
+```{r}
+# Assign your name to the variable
+myname <- "33"
+```
+
+```{r}
+# Show it on the screen
+myname
+```
+
+### Changing variables
+
+You can also change the contents of the variable by assigning a new value to it, just like before. Here, we show how to add 3 to the variable.  
+We're showing the result immediately by typing the ```example_number``` underneath.
+
+#### :ballot_box_with_check: Re-running demonstration
+
+Run the cell below a couple of times and observe the outcome. What do you see?
+
+:warning: Remember this: the order of the execution of cells is determined by the **user**, not by the computer or the order of the cells. :warning:
+
+```{r}
+example_number <- example_number + 3
+example_number
+```
+
+### Built-in functions
+
+R also contains a lot of built-in **functions** that are a bit more complex than a calculator.  
+Functions are used by typing their name, followed by parenthesis that can contain arguments. It is somewhat comparable to math functions, so let's use one of these as a first example.
+
+Calculate a simple mathematical function: $12 * \cos(0.2 * \pi)$
+
+```{r}
+# A first function
+
+12 * cos( 0.2 * pi )
+```
+
+As you can see R also contains some pre-defined values, such as $\pi$.
+
+```{r}
+pi*1000
+```
+
+## Types of individual data points
+
+We've been looking at numbers ($x \in \R$) so far, but R can also handle different types of data. Here is just a demonstration of some of the basic data types. We won't be using all of them, but it's good to know that they exist.
+
+
+### integer (whole numbers $x \in \Z$)
+
+Integers can be explicitly created, but it's usually not necessary to use them.
+
+```{r}
+integer_number <- as.integer(round(44.6))
+
+str(integer_number)
+```
+
+### imaginary
+
+```{r}
+imaginary_number <- 3 + 4i
+
+imaginary_number
+```
+
+```{r}
+1i
+```
+
+### Character string: text
+
+
+```{r}
+text_variable <- "ABCabc !$"
+
+str(text_variable)
+```
+
+### logical (TRUE / FALSE)
+
+```{r}
+logical_variable <- FALSE
+
+str(logical_variable)
+```
+
+### factors
+
+Factors are a bit different, they are 'category' values, used for instance to indicate conditions (treatment1, treatment2, treatment3) or other *statistical* variables.  
+Factors internally are 'integer' values, but use a table to show the names (e.g. 'treatment1') for the number (1).  
+It is outside the scope of this lesson to go into it further.
+
+
+## Structured data
+
+Of course an experiment will not give you single numbers, so we'll want to organize the data. Think for instance of excel sheets with data collected from an experiment.
+
+![excel_example.png](attachment:excel_example.png)
+
+
+Omics experiments generally produce huge amounts of data, mostly organized as tables. Think of the expression of all proteins in a sample, you will have a table with a column containing protein identifiers, a column with the measured intensity and maybe one with 
+
+R has data structures that accommodates such organization, and we'll go over a few of them here.
+
+### Vectors
+
+A vector is just a collection of numbers, and the mathematical naming already indicates it is related to math. There is a function to create a vector, the name is just 'c' (which comes from 'concatenate'), to stick together.
+
+:warning: you can use only *one* data type in a vector. If you try to combine two different data types, all values will be forced to be one type. For instance, ```my_second_vector``` below, contains four *character* values! :warning:
+
+```{r}
+my_first_vector <- c(1, 2, 3, 4, 5)
+
+str(my_first_vector)
+```
+
+```{r}
+my_second_vector <- c(1, 2, 3, "four", 5)
+
+str(my_second_vector)
+```
+
+### Speedy vector creation
+
+If you know your vector should contain whole numbers between two values, you can use the 'colon' ( : ).
+
+```{r}
+my_range <- 4:20
+my_range
+```
+
+#### Vectorized operations
+
+R is very handy with vectors, it can perform most operations it can do with single numbers on a vector without using difficult notation. For instance, to double all of the numbers in ```my_first_vector``` at once, just perform the multiplication. Here are some examples.
+
+```{r}
+my_first_vector * 2
+```
+
+```{r}
+my_first_vector - 1
+```
+
+```{r}
+my_first_vector * my_first_vector
+```
+
+So: the calculations are performed on **each** element of the vector. This is important to realize, because it is different than matrix multiplications in, for instance, calculus.
+
+### Matrices
+
+A matrix is a collection of data organized in a *grid*, similar to an Excel sheet.
+- Like vectors, matrices can only have one data type.
+- To create a matrix, we'll need a function called ```matrix```.
+  - There are some arguments to change the way the matrix is constructed
+  - The data in the matrix is given as a vector
+
+```{r}
+my_matrix <- matrix( data = c(1,2,3,4,5,6,7,8,9), nrow = 3, ncol = 3, byrow = TRUE)
+my_matrix
+```
+
+```{r}
+my_matrix <- matrix( data = c(1,2,3,4,5,6,7,8,9), nrow = 3, ncol = 3, byrow = FALSE)
+my_matrix
+```
+
+#### Column names and row names
+
+It is possible to give column names and row names to the matrix. This is useful to understand what is what, but also used to extract specific parts of the matrix, of instance a column. We'll look at that a bit later.
+
+The 'dimnames' (dimension names) is there to set these names, and you need to give it a 'list'. Even though a list *sounds* like something that R calls a vector, a list is actually the most 'free' data structure available in R. We'll discuss it later briefly.
+
+```{r}
+my_matrix <- matrix(data = c(1, 2, 3, 4, 5, 6, 7, 8, 9),
+                    nrow = 3,
+                    ncol = 3,
+                    byrow = TRUE,
+                    dimnames = list(rownames = c("row1", "row2", "row3"),
+                                    colnames = c("col1", "col2", "col3") ))
+my_matrix
+```
+
+### data.frame
+
+Many tables will have different data types in them. Think of the expression values example of before: a column with protein names (so, character values) and one or several columns with expression values (numeric values).
+Data.frames are the structures that can have a different type of data in each column. Conversely, you can still only have one data type per column.
+
+You can create a new data.frame with the data.frame function, where you first write the column name, an equals (=) sign (assignment, does the same thing as <- ) with the data in that column. You can also give the row names for the table with the row.names argument.
+
+:bulb: Note: the dot '.' is just part of the name, and not used to indicate a function or variable contained in 'data'. Unlike in other programming languages the dot is used as just another letter in R names.
+
+```{r}
+expression_data <- data.frame(row.names = c("A", "B", "C", "D"),
+                              wildtype.expression = c(1.0, 1.1, 3.0, .5),
+                              mutantA.expression = c(2.3, 1.2, 3.1, .6),
+                              mutantB.expression = c(1.1, 0.01, 3.0, 8.1),
+                              outcome = c("D", "S", "S", "D") )
+
+expression_data
+```
+
+### list
+
+The list is a bit odd, in that the name would suggest it would be something like a vector, but that's not what it is.  
+Think of a list as a container that contains variables. These variables have names and values, and each variable can contain anything, just like when you are making separate variables, and similar to data.frames.
+
+Of course, to create a list, you can use the 'list' function.
+
+
+```{r}
+my_list <- list( name = "Jane Doe", grades = c(8,7,7,9))
+
+# my_list
+
+my_list
+```
+
+### Tibble
+
+The tibble is a type of data.frame, with extra functionality. The tibble is used in the ["Tidyverse"](https://tidyverse.org).  
+This contains modern extensions to the R programming language, and we'll go into some aspects of that later on.
+
+An important difference with a data.frame is, that a tibble does not have row names. This has some implications on how to extract values from tibbles. We'll discuss this in a later lesson.
+
+## A word on HELP
+
+R is a powerful computer language, and there is a lot to learn about it. If you want to find how to perform some action in R, you can of course look into the internet, but R also has help built in to it.  
+To get help about some kind of function, just type the question mark (?) followed by the name of the function you need help on.  
+If you don't know the name of the function that you need, you can also always use the double question mark, to search on key words.
+
+#### :ballot_box_with_check: Help exercise
+
+Find help on the `list` function, using both a single question mark and a double question mark.
+
+```{r}
+? list
+```
+
+```{r}
+?? list
+```
+
+# Addressing data in data.frames
+
+I haven't talked about getting data *out* of data.frames.  
+The way to do that, is using square brackets [  ]
+
+```{r}
+expression_data <- data.frame(row.names = c("A", "B", "C", "D"),
+                              wildtype.expression = c(1.0, 1.1, 3.0, .5),
+                              mutantA.expression = c(2.3, 1.2, 3.1, .6),
+                              mutantB.expression = c(1.1, 0.01, 3.0, 8.1),
+                              outcome = c("D", "S", "S", "D"))
+
+expression_data
+```
+
+You can get data out with column names. If you want the "whole" row or column, just leave that place empty.
+
+```{r}
+output <- expression_data [ , "wildtype.expression"]
+str(output)
+```
+
+You can get data out with row names:
+
+```{r}
+expression_data["B",]
+```
+
+You can also use numbers to get rows or columns out.
+
+```{r}
+expression_data[2,2]
+```
+
+```{r}
+expression_data[1,]
+```
+
+#### :ballot_box_with_check: Think about the different data structures
+
+What was the result of extracting a column from the data.frame?
+What was the result of extracting a row from the data.frame?
+
+Can you think of why this happens?  
+
+
+
+# Congrats :tada:
+
+You should now understand R data types and know about the most important data structures.
+The next lesson is about conditions and loops.
+
+
+# Quick R
+
+We'll give you a simple introduction to R on this page. First, we'll go through how this web page works to run your code, using notebooks.
+
+## Notebooks
+
+You're looking at a 'notebook', which aims to combine documentation (human readable text) and computer code that you can actually execute.
+
+For that it uses *cells*, and each cell can contain either:
+
+- **text** and for instance formulas $\left(\int_{a}^{b} f(x) \; dx\right)$. The text you are reading now is in a text cell.
+  - Text is written with simple codes, called markdown.
+  - Don't do it now, but double clicking this text will show the markdown.
+- **code** (the programming language depends on the _kernel_ setting, which is shown on the top right)
+- **raw** which is just non formatted text
+
+

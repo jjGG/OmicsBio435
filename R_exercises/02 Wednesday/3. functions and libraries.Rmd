@@ -1,0 +1,339 @@
+---
+title: An R Markdown document converted from "C:/Users/vdtoo/SynologyDrive/Work/teaching/2024/Development
+  omics in oncology COIL/repo/R_exercises/02 Wednesday/3. functions and libraries.ipynb"
+output: html_document
+---
+
+# Functions and Libraries
+
+Functions are pieces of code you want to write once, and use in many different cases.  
+Effectively, they are the building blocks that you use to do some analysis.
+
+Numerous functions exist in R. Examples are mathematical or statistical functions, plotting, but also functions to read or write data to disk.
+
+## Existing functions
+
+Last lesson we have already shown some math functions. Here are some examples of some more general use functions.
+
+```{r}
+# Print something on the screen with 'cat'
+# We've seen this one before
+cat("something", "\t", "different")
+```
+
+```{r}
+x <- c(1,2,3,4,5)
+y <- c(24,12,3,1,1)
+
+# Simple plots with 'plot'
+plot(x,y)
+
+# Add some points to the plot
+#points(x,y, col="red")
+```
+
+```{r}
+# plot some 'math' function
+# 1:1000 is a 'range', all numbers from 1 to 1000
+
+x <- 0:1000
+# Make it a number between 0 and 1
+x <- x / 1000
+# scale everything to be between 0 and 4 * pi
+x <- x * 4 * pi
+
+plot(x, cos(x), type="l")
+```
+
+```{r}
+# Draw 10000 random numbers from the 'standard normal' distribution
+
+x <- rnorm(10000)
+y <- rnorm(10000)
+
+plot(x,y)
+
+# Plot a histogram of the 'x' values
+hist(x)
+```
+
+```{r}
+?plot
+```
+
+
+## Make your own function
+
+Creating your own function isn't really difficult. What you need to know are the following things:
+- A function contains code that you want to run many times, but with different parameters.
+- A function has 'arguments', these are the parameters for the function
+  - Arguments are variables that need to be filled in by the user
+  - You define arguments in your function definition.
+  - The user assigns values to the arguments between parentheses.
+  - These values are now available in the code you wrote by their names.
+  - :bulb: Arguments are the things that makes functions flexible
+- A function has a name, that you use to execute the code you wrote.
+  - :warning: Carefully think about the name, it has to make sense! :warning:
+
+This may be a bit much to understand at once, so let's dive in with an example:
+
+```{r}
+show_name <- function(name) {
+    cat("Your name is", name)
+}
+
+show_name("Anonymouse")
+```
+
+#### :ballot_box_with_check: Now make your own function
+
+Create a function that takes two arguments, that divides the two. Write the answer to the screen using the `cat` command. Think about good names for the arguments.
+
+```{r}
+# Type your function here:
+test_divide <- function(numerator, denominator) {
+    cat("Dividing", numerator, "by", denominator, "is", numerator / denominator, "\n")
+}
+
+test_divide(3, 4)
+test_divide(5, 4)
+test_divide(7, 0)
+```
+
+Use 'if' to make sure that the numbers are correct, to divide and give some understandable feedback on what went wrong.
+
+```{r}
+`*` <- function(x,y) { return (x+y)}
+```
+
+```{r}
+# Inside the function, use an 'if' statement to test if the denominator is zero, and give feedback when that happens
+
+test_divide <- function(numerator, denominator) {
+    if (denominator == 0) {
+        cat("Can't divide by zero")
+    } else {
+        cat("Dividing", numerator, "by", denominator, "is", numerator / denominator, "\n")
+    }
+}
+
+test_divide(3, 4)
+test_divide(5, 4)
+test_divide(7, 0)
+```
+
+## Giving results back
+
+If you think about , for instance, the `cos` function, you will have noticed that the function calculates something, and gives you a value back.  
+In computer language, this is called 'to return a value'.  
+You can return any data type or data structure. The simplest way that this is done in R, is by typing the name of the variable that contains the result on the last line in your function.  
+Alternatively, you can enter `return( returnvalue )` in your function. Doing that will immediately exit the function and give the result back.
+
+If you don't assign the returned value to a variable, it   
+will simply be printed on the screen.
+
+Here's a simple example:
+
+
+```{r}
+5 * 6
+```
+
+```{r}
+returns_something <- function (a_number) {
+    a_number * 10
+}
+
+# This result will be assigned to 'my_result', and not shown on the screen
+cat ("Assigning to my_result: \n")
+
+my_result <- returns_something(10)
+
+# This result will be sent to the screen (and not be stored)
+
+cat ("Not assigning to a variable: \n")
+
+returns_something(12)
+```
+
+```{r}
+returns_something_explicitly <- function (a_number) {
+    return(a_number / 10)
+
+    cat("You do not see me :)")
+}
+
+answer <- returns_something_explicitly(42)
+
+answer
+```
+
+#### :ballot_box_with_check: Convert your function above
+
+Copy the function that you made that divides two numbers, and make sure it returns the divided value instead of printing it on the screen with 'cat'.
+
+```{r}
+# Type your function here:
+test_divide <- function(numerator, denominator) {
+    if (denominator == 0) {
+        return("Can't divide by zero")
+    } else {
+        return(numerator / denominator)
+    }
+}
+
+test_divide(3, 4)
+test_divide(5, 4)
+test_divide(7, 0)
+```
+
+#### Note: Returning errors
+
+To be complete: here is how you return errors from your function
+
+```
+?message # prints a message but not stop execution
+?warning # prints a warning message but not stop execution
+?stop # stops execution of the current expression and executes an error action.
+```
+
+
+```{r}
+test_divide_stop <- function(numerator, denominator) {
+    if (denominator == 0) {
+        stop("You are an idiot")
+    } else {
+        cat("Dividing", numerator, "by", denominator, "is", numerator / denominator, "\n")
+    }
+}
+
+test_divide_stop(10,0)
+
+cat("Hello")
+```
+
+# Libraries
+
+![library.png](attachment:library.png)  
+
+If you start R (for instance in a notebook like this), you will get a substantial number of functions out of the box.
+These functions they are quite generic and if you want to perform some specific analysis (either statistical or for some \*omics technology) you will often need some more specialized functions.  
+
+A bundle of these functions can be obtained by loading in a *library*.
+
+The R function to read in a library is called `library`.
+
+#### :ballot_box_with_check: Library reading demo
+
+Check that the following function does not work: run `ggplot()`, in the next cell:
+
+```{r}
+ggplot()
+```
+
+If all went 'well' we get an error. Now run the following cell to load in a library called **ggplot2**. This library contains some plotting functions, including the `ggplot()` function
+
+```{r}
+library(ggplot2)
+```
+
+You probably only observed the small green dot lighting up for a second or so, to indicate R was busy, but no output is shown.  
+But something did change: the ggplot function is now available! Test it out in the next cell:
+
+```{r}
+ggplot()
+```
+
+Maybe a boring result, but because there is no data there, ggplot will only show the place where it can draw something..  
+But the point is, R now "knows" the `ggplot` function. :tada:
+
+#### Library data
+
+Apart from functions, a library may also contain some data. Ggplot2 contains the 'mpg' variable. You can find help about this dataset with the help function you have seen before. Try it out!
+
+```{r}
+? mpg
+```
+
+Also have a look at the contents of the mpg variable:
+
+```{r}
+mpg
+```
+
+#### :ballot_box_with_check: ggplot demo
+
+Without explaining how for now, let's create a nice plot in ggplot2. Remember that both the functions and the data are coming from the ggplot2 library that we loaded!
+
+```{r}
+library(ggplot2)
+
+ggplot(mpg, aes(x=displ, y=cty)) +
+    geom_point(aes(color=class)) +
+    geom_smooth(method = "nls", formula = y ~ SSasymp(x, Asym, R0, lrc), se=FALSE)
+```
+
+## A more "extreme" example
+
+See if you can understand what is going on in the example underneath. Don't sweat if you have difficulties understanding the details, just look at how the functions work.
+
+
+#### Normal distribution plotter
+The normal distribution ([Wikipedia link](https://en.wikipedia.org/wiki/Normal_distribution)) is defined as:
+
+${\displaystyle f(x)={\frac {1}{\sigma {\sqrt {2\pi }}}}e^{-{\frac {1}{2}}\left({\frac {x-\mu }{\sigma }}\right)^{2}}}$
+
+If you look through the formula, there appear to be three variables: x, $\mu$ and $\sigma$.
+If we want to plot this curve, we'll need to calculate this formula for a lot of x values. We'll have our function take care of that.
+To determine the shape of the curve, we'll need to know $\mu$, the mean, and $\sigma$, the standard deviation. There is a 'default' normal distribution, usually called the *standard normal distribution*, where $\mu = 0$ and $\sigma = 1$. We can use these as our default values for our function.
+
+Here is the worked out example.
+
+#### :ballot_box_with_check: Discussion question
+
+Why do you think we created an additional function?
+
+```{r}
+calculate_normal_distribution <- function (x, mean = 0, standard_deviation = 1) {
+    y <- (1 / (standard_deviation * sqrt(2*pi))) * exp( -0.5 * ((x - mean) / standard_deviation) ^ 2)
+    y
+}
+
+plot_normal_distribution_curve <- function(mean = 0, standard_deviation = 1) {
+    # Let's pick the x range between the values (mean - standard_deviation * 3) and (mean + standard_deviation * 3)
+
+    x <- seq((mean - standard_deviation * 3), (mean + standard_deviation * 3), by=1/1000)
+    y <- calculate_normal_distribution(x, mean, standard_deviation)
+
+    ci_x <- seq((mean - standard_deviation * 1.96), (mean + standard_deviation * 1.96), by=1/1000)
+    ci_y <- calculate_normal_distribution(ci_x, mean, standard_deviation)
+
+    plot(x, y, type="l", main=paste("Normal distribution, mean =", mean, "sd =", standard_deviation))
+
+    # Let's add some lines to the distribution
+    abline (v = mean, col="red", lty=2)
+    text(x = mean, y = calculate_normal_distribution(mean, mean, standard_deviation), label="mean")
+
+    polygon( c( min(ci_x), ci_x, max(ci_x) ), c(0, ci_y, 0), density = 12, angle = 45, col="chocolate1")
+
+    confidence_interval_left = mean - standard_deviation * 1.96
+    abline (v = confidence_interval_left, col="darkgreen", lty = 2)
+
+    confidence_interval_right = mean + standard_deviation * 1.96
+    abline (v = confidence_interval_right, col="darkgreen", lty = 2)
+    text(x = mean, y = 0, label = "95% confidence interval", adj=c(0.5,0))
+}
+```
+
+#### :ballot_box_with_check: Explain the outcome of the following commands
+
+```{r}
+plot_normal_distribution_curve()
+plot_normal_distribution_curve(mean=3)
+plot_normal_distribution_curve(mean=-4, standard_deviation=10)
+```
+
+```{r}
+show_name
+```
+

@@ -1,0 +1,112 @@
+---
+title: An R Markdown document converted from "C:/Users/vdtoo/SynologyDrive/Work/teaching/2024/Development
+  omics in oncology COIL/repo/R_exercises/02 Wednesday/4. Reading in data.ipynb"
+output: html_document
+---
+
+# Reading data
+
+Usually, you don't want to enter in the data into R manually, but you will get the data from an external source.  
+Often this will be a text file, written out by some analysis program. Sometimes it is data that is uploaded to a journal in excel format.
+
+There are several methods to read data, we'll be using packages from some libraries.
+
+## Simple text
+
+R can read text files (such as csv or tsv files). I have downloaded one file from https://datacarpentry.org/semester-biology/materials/datasets/.
+
+The most commonly used text formats are the following:
+
+- csv, "comma separated values". This is a file format that has lines \(rows\) with values, with commas in between. Usually the first line contains the column headers.
+  - Some countries \(notably The Netherlands\) use a comma instead of a dot. csv files exported from Excel usually replace the 'comma between values' with a semicolon \( ; \).
+- tsv, "tab separated values".
+  - Many times tsv files are stored with the 'txt' file extension. Always look inside of the file with a text editor if you are not sure wha  
+    t the delimiter is.
+  - If you need to write down the character "tab" in a command, you can use "_\\t_" \(similar to _\\n_ which means newline\)
+
+#### Method 1: 'base' R file reading
+
+R has different read methods. The help page for many of them is combined, you can find it by getting help for `'read.delim`'.
+
+```{r}
+#find information about read.delim
+? read.delim
+```
+
+#### :ballot_box_with_check: Read in the avian_ssd_jan07.txt file
+
+Put the result in the variable with name 'birds'. Have a look at the file, and decide what type of delimited file we're looking at, and choose a reading function.
+
+Have a look at the contents of 'birds', does some number appear over and over again in unexpected places?  
+
+
+```{r}
+birds <- read.delim("avian_ssd_jan07.txt")
+```
+
+```{r}
+birds
+```
+
+#### :ballot_box_with_check: Small adjustments for reading in the data
+
+It turns out the number you found, is actually used here for as "not a number", or "not valid" or "missing" value. 
+
+Because the people who created the file did not use NA in the file, R just shows the number. Even though bit of a strange thing to do, but we'll have to deal with it.
+
+To read in the file in a better way, we can tell R to read the number you found as if it is NA. The trick to do this can be found in the documentation. It is a special argument for the function that tells R to interpret certain numbers as 'NA'.  
+Read in the data with this extra argument for the read function. Note, there are actually two \(slightly different\) representations of the same number, you will need to tell R what variants exist.  
+
+
+```{r}
+# Read the bird data in, with NA's
+bird <- read.delim("avian_ssd_jan07.txt", na=c("-999", "-999.0"))
+```
+
+```{r}
+bird
+```
+
+## Reading text with the Tidyverse functions
+
+If you load in the 'tidyverse' library, you will get access to some new (improved) functions for reading in text. These functions work the same way as the 'base' R functions, with the exception that they have been made faster, and also that the result that they produce is a Tibble, if possible.
+
+#### :ballot_box_with_check: Load the 'tidyverse' library, and use read_delim (see the difference in the naming?) to read in the same file.
+
+
+Name the variable 'birds2'.
+
+```{r}
+# Read in the tidyverse library
+library("tidyverse")
+```
+
+```{r}
+# don't forget 'str'
+birds2 <- read_delim("avian_ssd_jan07.txt")
+
+class(birds2)
+```
+
+## Excel
+
+Load in the 'readxl' library. Read the help file about how to read in a file.  
+There is an Excel file for an exercise that we are going to use in another exercise. Let's use that to load in the data.  
+To get to the file, use the following character string: "../../data/CELL-179-suppl1.xlsx"
+
+Read the data and check if everything went ok. If not, check the excel file and try to fix it!
+
+
+```{r}
+# Load the readxl library
+library(readxl)
+```
+
+```{r}
+# Read the file in "../../data/CELL-179-suppl1.xlsx"
+cell <- read_excel("../../data/CELL-179-suppl1.xlsx", skip=1)
+cell
+```
+
+# Use Cheat Sheets! (tidyverse.org)
+
