@@ -3,6 +3,9 @@
 #### In order to do some nice formatting
 [Rmarkdown-cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 
+## Potentially useful for Self-assessment:
+https://docs.google.com/forms/d/e/1FAIpQLSdIyeuabd_ZOWXgI1MWHapmaOMu20L9ESkLDZiWnpmkpujyOg/viewform
+
 ## GOALS for Week 2:
 * know what is git and github
 * clone or branch the proposed repository and commit some changes at various positions
