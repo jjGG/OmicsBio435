@@ -1,0 +1,235 @@
+---
+title: An R Markdown document converted from "C:/Users/vdtoo/SynologyDrive/Work/teaching/2024/Development
+  omics in oncology COIL/repo/R_exercises/03 Friday/5. Tidy data, tibbles and ggplot.ipynb"
+output: html_document
+---
+
+# Tidy Data
+
+Tidy data is a "different" way of writing down data than may be intuitive in the first place. Let's give you an example to make that clear:
+- We have patients that get some kind of treatment for a disease
+- For some patients, the treatment works, for other patients the treatment does not.
+- The gene expression is measured before and after the treatment
+
+### Let's format this in a first attempt
+
+![patients_excel.png](attachment:patients_excel.png)
+
+What's missing now, is the patient outcome. You could put this in a new sheet, or in an extra row like this:
+
+![excel_example_extended.png](attachment:excel_example_extended.png)
+
+Using this form of data storage makes life more difficult than necessary. There is another way that may be slightly less intuitive to start with, but is much more powerful.
+
+### The Tidy Way
+
+There are some rules that if you follow them, gives you a much more flexible way of storing your values. This is called 'tidy'.
+
+For the record: here are the "rules":
+
+- Every column is a variable.
+- Every row is an observation.
+- Every cell is a single value.
+
+![tidy-1.png](attachment:tidy-1.png)
+
+A dataset is a collection of values, usually either numbers (if quantitative) or strings (if qualitative).  
+Values are organised in two ways. Every value belongs to a variable and an observation.
+- A variable contains all values that measure the same underlying attribute (like height, temperature, duration) across units.
+- An observation contains all values measured on the same unit (like a person, or a day, or a race) across attributes.
+
+Taken from:
+https://tidyr.tidyverse.org/articles/tidy-data.html and https://r4ds.had.co.nz/tidy-data.html![tidy-9.png](attachment:tidy-9.png)
+
+There are a couple of problems with the way the data has been written down above. What you probably want to compare are patients (the *units*).
+- There are variables occupying multiple columns (Patient number is in the column headers)
+- The outcome does not really fit in - either you do it with a separate table or you wedge it in on the first line
+
+#### :ballot_box_with_check: Let's make our example data tidy!
+
+The tidyverse libraries `dplyr` and `tidyr` contain a lot of functionality to make our data tidy. After we've done that, I'll show a couple of major advantages of this storage format.
+
+```{r}
+library(tidyverse)
+library(readxl)
+
+# Read in the file "example_patientdata.xlsx" into a variable
+# Also read in the second sheet into another variable. This table contains the outcomes for each patient
+
+# set working directory to proper location
+# mypwd <- getwd()
+# (newpwd <- paste0(mypwd, "/R_exercises/03 Friday"))
+# setwd(newpwd)
+
+patientdata <- read_excel("example_patientdata.xlsx")
+outcomes <- read_excel("example_patientdata.xlsx",sheet="Outcome")
+
+patientdata
+outcomes
+```
+
+#### :bulb: Before anything: the *pipe* (%>%)
+
+![external-content.duckduckgo.com.jpg](attachment:external-content.duckduckgo.com.jpg)
+
+There is a special way to run many different commands one after the other, in one line. This is called a 'pipeline'.  
+The way to write this down is a little bit special, but after getting used to it is is very fast and intuitive.
+
+Remember the following things:
+
+- The functions in a pipeline need to take the data (data.frame or tibble) as their first argument
+- If you use these functions in a pipeline, you will give the data as the argument, it is 'piped' into the function by the %>% operator.
+
+An example, with standard functions:
+
+```{r}
+print("Some Text")
+```
+
+```{r}
+"Some Text" %>% print()
+```
+
+You can perform different steps by 'piping' them together:
+
+```{r}
+# Step by step, using variables
+some_text <- "Some Text"
+some_text_uppercase <- toupper(some_text)
+print(some_text_uppercase)
+```
+
+```{r}
+# Same thing, with nested functions
+print(toupper("Some Text"))
+```
+
+```{r}
+# Now as a pipeline
+"Some Text" %>% toupper() %>% print()
+```
+
+```{r}
+# The output of a pipeline can be assigned to a variable
+
+my_uppercase_text <- "Some Text" %>% toupper()
+my_uppercase_text
+```
+
+#### Get our data in the 'tidy' form
+
+Let's get the data into 'long' form. For that we've loaded the 'tidyr' library, and specifically the `pivot_longer` function. It's beneficial to download the tidyr cheat sheet from the tidyverse.org website.
+
+Take the data that you loaded in and use the pivot_longer function. pivot_longer wants to know what columns to get all values from. You can use the following (not exhaustive list of)"selection" methods:
+
+1. Give the column _names_ to use \(in a vector\)
+2. Give the column _numbers_ to use \(integer numbers, so you ca  
+   n use the 'colon' method, for instance 2:4 for columns 2, 3 and 4\)
+3. Give the name of the column\(s\) you _don't_ want to pivot into a long form so keeping them, by giving the name\(s\) of the columns, prepended by an exclamation point \(!\) or a \-. Like !ColumnName, or \-ColumnName
+
+- Interestingly, you use column names _without quotes_ in the tidyverse functions, such as `pivot_longer`.
+
+
+```{r}
+# use pivot_longer on our patient data, replace [...] below
+str(patientdata)
+patientdata_tidy <- patientdata %>% pivot_longer(cols = colnames(patientdata)[2:ncol(patientdata)], names_to = "name", values_to = "value")
+```
+
+##### Splitting a column
+
+If all went well, now you have a column with TWO peaces of data, i.e. the former column names, now in column 'name', that contain both "Patient x" numbers, and the moment that the measurement of the gene was made. These values should be split into two columns, so we can refer to them separately!
+
+For that, tidyr has the `separate` function. Look up how to use that function, and split the `name` column into the columns "Patient" and "MeasureMoment". As the "separator", I suggest using ", ", so a comma WITH a space, so that the resulting columns dont' contain spaces in the beginning of the text.
+
+As always, check your result!
+
+```{r}
+# Split the name column, by extending the pipeline above, replace [...] below
+patientdata_tidy <- patientdata_tidy %>% separate(col = name, into = c("Patient", "MeasureMoment"), sep = ", ")
+patientdata_tidy
+```
+
+#### Relative changes
+
+Now we have fixed values for 'before' and 'after' treatment measurements, per gene. But probably it's much nicer to work with ratios of (after / before).  
+Let's calculate that. We'll need a pipeline with *two* steps for that:
+
+1. Make the form of the data a *little bit* wider, in that the `before` and `after` values take their own column
+   - Can you imagine this data is still tidy? You see you have some choices about what *exactly* is tidy data!
+2. We'll calculate a new column that contains the values of dividing all pairs of `before` and `after` numbers. For convenience we're going to take the log2 of those ratios.
+
+For step 1, you will need the `pivot_wider` function. Try to find out how to use it, but if you have problems, make sure to discuss it in the group!
+
+For step 2, you can use the `mutate` function. This is one of the most intuitive functions of the `dplyr` library. Find out how to use it, and do the calculation. You can call the new column "relative_change".
+
+
+```{r}
+# go wide again
+patientdata_littleWider <- patientdata_tidy %>%
+    pivot_wider(names_from = MeasureMoment, values_from = value)
+```
+
+```{r}
+ patientdata_plot <- patientdata_tidy %>%
+    pivot_wider(names_from = MeasureMoment, values_from = value) %>%
+    mutate(relative_change = log2(after / before))
+patientdata_plot
+```
+
+#### :ballot_box_with_check: Let's use ggplot2 to print out our data
+
+ggplot2 is the more modern printing library for R. It needs long-form data!
+
+The ggplot function has data as its first argument (so you can use it in the "tail" of a pipeline if you want, but we won't do that here.)
+The second argument "maps" columns to what is going to be drawn on the screen. This whole expression is given in the following code cell.
+
+*This will not plot anything yet*, you will need something that actually draws something to the screen. These are functions and are (perhaps surprisingly) *added* to the plot.
+
+* First, have a look at the function below. To what graph 'aesthetic' is what column of the data mapped?
+
+For instance, to draw a scatter plot, you can add geom_point() to the plot. Adding to a plot means adding a *layer* to it. You can add many layers, every time adding some aspects to the plot. Try this out!
+
+```{r}
+myplot <- ggplot(patientdata_plot, aes(x=before, y=relative_change, col=Patient))
+```
+
+#### Using a stored plot
+
+A nice property of ggplot's is, that you can store them in a variable, and by printing that variable to the screen, it will be plotted. You can still add layers to the variable to make a more extensive plot, and it allows you to see all of the intermediate steps.
+
+Alter the cell above to store the outcome of the "formula" into a new variable. type the name of the variable in the cell below, and run that cell.
+
+```{r}
+myplot2 <- myplot + geom_line() + geom_point()
+```
+
+#### ggplot2 extensions, example: 'ggrepel'
+
+Additional functionality has been created to extend the possibilities of ggplot2. A nice example is the `ggrepel` library. Use library() to load it.
+
+![ggrepel-allison_horst.jpg](attachment:ggrepel-allison_horst.jpg)
+
+Try to use the `geom_label_repel` to add the Genename to your existing plot.
+
+* This means you will need to create an additional mapping, this time to the *label* aesthetic. You can always add extra aesthetic mappings as arguments to 'geom_' layers.
+
+```{r}
+??geom_label_repel
+```
+
+```{r}
+library(ggrepel)
+myplot2  + geom_label_repel(aes(label=Patient)) + theme_dark()
+```
+
+## Theming for ggplot2
+
+ggplot includes many 'themes', which makes it easy to change the appearance of the plot.  
+Themes are recognized by the word theme\_ prepended to it. Try to use the minimal theme on your plot. Store the plot with the labels above again in a variable, and add the theme to it in the last cell for today. Many themes are available, also in external libraries, for instance "ggpubr". Look for them online!  
+
+
+```{r}
+library(ggpubr)
+```
+
