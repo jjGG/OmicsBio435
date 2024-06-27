@@ -12,6 +12,9 @@
 *Do the first __chapter__ of the free datacamp course *Introduction to R*:
   + https://app.datacamp.com/learn/courses/free-introduction-to-r
 
+## Quite useful collection of Tutorials here --> we would need to recommend one or two!
+https://www.glittr.org/
+
 
 
 ## Some more useful online Tutorials to get familiar w/ git and github (commented):
