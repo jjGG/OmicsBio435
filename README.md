@@ -5,6 +5,7 @@
 
 ## Potentially useful for Self-assessment:
 https://docs.google.com/forms/d/e/1FAIpQLSdIyeuabd_ZOWXgI1MWHapmaOMu20L9ESkLDZiWnpmkpujyOg/viewform
+* 8 simple base R questions with single choice. 
 
 ## GOALS for Week 2:
 * know what is git and github
