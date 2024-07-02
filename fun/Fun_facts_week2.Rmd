@@ -56,6 +56,11 @@ knitr::include_graphics("img/IMG_8615.jpg")
 Here we defined an `out.width = "30%"` and `fig.align = "left"`. We also prevented the code from appearing using `echo=FALSE`.
 
 
+```{r echo=FALSE, out.width = "30%", fig.align = "left"}
+knitr::include_graphics("img/Screenshot 2024-07-02 at 16.18.24.png")
+```
+
+
 
 
 

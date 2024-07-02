@@ -207,7 +207,7 @@ test_divide_stop <- function(numerator, denominator) {
     }
 }
 
-test_divide_stop(10,0)
+test_divide_stop(10,3)
 
 cat("Hello")
 ```
