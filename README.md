@@ -58,9 +58,7 @@ https://gitconnected.com/learn/r
 
 
 ## Generic Github account:
-```{r echo=FALSE, out.width = "100%", fig.align = "left"}
-knitr::include_graphics("fun/img/sml.jpg")
-```
+![Here some useful info to write here](fun/img/sml.jpg?raw=true "GH generic")
 
 
 
