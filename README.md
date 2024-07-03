@@ -1,6 +1,7 @@
 # In this repos here we will develop the Bio435_week2
+### getting in contact w/ R programming language, RStudio and github
 
-#### In order to do some nice formatting
+#### In order to do some nice formatting in Rmarkdown, you can use the following cheatsheet:
 [Rmarkdown-cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 
 ## Potentially useful for Self-assessment:
@@ -9,6 +10,7 @@ https://docs.google.com/forms/d/e/1FAIpQLSdIyeuabd_ZOWXgI1MWHapmaOMu20L9ESkLDZiW
 
 ## GOALS for Week 2:
 * know what is git and github
+* get yourself a github account
 * clone or branch the proposed repository and commit some changes at various positions
   + add your phone Nr and push it to the main branch
   + in the assignment folder add a folder with your group names and do the exercise in R
@@ -55,6 +57,10 @@ https://gitconnected.com/learn/r
 -> various Tutorials to R
 
 
+## Generic Github account:
+```{r echo=FALSE, out.width = "100%", fig.align = "left"}
+knitr::include_graphics("fun/img/sml.jpg")
+```
 
 
 
