@@ -61,6 +61,10 @@ https://gitconnected.com/learn/r
 ![Here some useful info to write here](fun/img/sml.jpg?raw=true "GH generic")
 
 
+Without loggin in and being collaborator you can fork the repository and then propose changes in a pull request (PR)
+
+
+
 
 
 
