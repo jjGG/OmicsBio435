@@ -4,12 +4,17 @@
 #### In order to do some nice formatting in Rmarkdown, you can use the following cheatsheet:
 [Rmarkdown-cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 
+## To do in order to accomplish future tasks:
+* getting familar w/ github & connecting RStudio to your github: https://www.youtube.com/playlist?list=PLSviU861UtD81AuyYb3SbndmAA_qTCoLe
+* 
+
+
 ## Potentially useful for Self-assessment:
 https://docs.google.com/forms/d/e/1FAIpQLSdIyeuabd_ZOWXgI1MWHapmaOMu20L9ESkLDZiWnpmkpujyOg/viewform
 * 8 simple base R questions with single choice. 
 
 ## GOALS for Week 2:
-* know what is git and github
+* know what is git and github (https://www.youtube.com/playlist?list=PLSviU861UtD81AuyYb3SbndmAA_qTCoLe)
 * get yourself a github account
 * clone or branch the proposed repository and commit some changes at various positions
   + add your phone Nr and push it to the main branch
